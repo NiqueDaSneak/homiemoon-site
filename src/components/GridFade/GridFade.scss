@@ -7,15 +7,19 @@
   margin: 0 auto;
   overflow: hidden; /* Prevent overflow from stretching the container */
   height: 100%;
+  &.single-row {
+    grid-template-rows: repeat(1, 1fr); /* 1 rows */
+    // height: 60%;
+  }
 }
 
 .grid-item {
   position: relative;
-  opacity: 0;
+  opacity: 1;
   background-size: cover;
   background-position: center;
   border-radius: 8px;
-  animation: fadeInOut 8s ease-in-out infinite;
+  // animation: fadeInOut 8s ease-in-out infinite;
   animation-fill-mode: forwards;
   transition: filter 0.3s ease, transform 0.3s ease; /* Smooth transition */
   cursor: pointer; /* Indicate interactivity */

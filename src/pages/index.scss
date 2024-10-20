@@ -1,8 +1,5 @@
 @import '../components/index.scss';
 
-html {
-  //   filter: grayscale(100%);
-}
 body {
   --s: 80px; /* control the size */
   --c1: rgb(58, 58, 58); /* Emerald - static */
@@ -33,4 +30,11 @@ body {
   grid-template-rows: 25dvh 75dvh;
   align-items: center;
   padding-top: 40px;
+}
+
+main {
+  @include respond-to(desktop) {
+    width: 40%;
+    margin: 0 auto;
+  }
 }

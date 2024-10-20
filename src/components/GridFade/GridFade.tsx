@@ -13,9 +13,10 @@ interface ImageNode {
 
 interface GridFadeProps {
   directory: string; // Directory name as a prop
+  singleRow?: boolean;
 }
 
-const GridFade: React.FC<GridFadeProps> = ({ directory }) => {
+const GridFade: React.FC<GridFadeProps> = ({ directory, singleRow }) => {
   const data = useStaticQuery(graphql`
     query {
       allFile(filter: { extension: { regex: "/(jpg|jpeg|png|gif)/" } }) {
@@ -56,7 +57,7 @@ const GridFade: React.FC<GridFadeProps> = ({ directory }) => {
   };
 
   return (
-    <div className="grid-container">
+    <div className={`grid-container ${singleRow ? 'single-row' : null}`}>
       {images.map(({ node }: ImageNode, index: number) => {
         const imageData =
           node.childImageSharp.gatsbyImageData.images.fallback.src;
@@ -65,7 +66,8 @@ const GridFade: React.FC<GridFadeProps> = ({ directory }) => {
         return (
           <button
             key={node.id}
-            className={`grid-item ${index % 2 === 0 ? 'even' : 'odd'}`}
+            className={`grid-item`}
+            // className={`grid-item ${index % 2 === 0 ? 'even' : 'odd'}`}
             style={{
               backgroundImage: `url(${imageData})`,
               filter: isToggled ? 'grayscale(0%)' : 'grayscale(100%)',
