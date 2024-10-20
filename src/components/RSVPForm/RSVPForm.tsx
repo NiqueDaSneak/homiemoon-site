@@ -15,88 +15,76 @@ const RSVPForm: React.FC = () => {
     plusOne: false,
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
+  //   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //     const { name, value, type, checked } = event.target;
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: type === 'checkbox' ? checked : value,
+  //     }));
+  //   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  //   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  //     event.preventDefault();
 
-    const form = event.currentTarget; // Get the form element
-    const data = new FormData(form);
+  //     const form = event.currentTarget; // Get the form element
+  //     const data = new FormData(form);
 
-    // Convert FormData to URLSearchParams
-    const params = new URLSearchParams(data as any);
+  //     // Convert FormData to URLSearchParams
+  //     const params = new URLSearchParams(data as any);
 
-    // Send data to Netlify
-    const response = await fetch('/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: params.toString(),
-    });
+  //     // Send data to Netlify
+  //     const response = await fetch('/', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //       },
+  //       body: params.toString(),
+  //     });
 
-    if (response.ok) {
-      setSubmitted(true);
-    } else {
-      console.error('Submission failed.');
-    }
-  };
+  //     if (response.ok) {
+  //       setSubmitted(true);
+  //     } else {
+  //       console.error('Submission failed.');
+  //     }
+  //   };
 
   return (
     <div style={{ marginBottom: '150px' }}>
-      {!submitted ? (
-        <form
-          name="homiemoon-rsvp"
-          className="rsvp-form"
-          data-netlify="true"
-          onSubmit={handleSubmit} // Handle form submission
-          method="POST" // Ensure this is set for Netlify
-        >
-          <input
-            name="name"
-            placeholder="Your Name"
-            className="rsvp-input"
-            value={formData.name}
-            onChange={handleChange} // Update form data on input change
-            required // Ensure this field is filled out
-          />
-          <input
-            name="email"
-            placeholder="Your Email"
-            type="email"
-            className="rsvp-input"
-            value={formData.email}
-            onChange={handleChange} // Update form data on input change
-            required // Ensure this field is filled out
-          />
-          <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-            <label className="rsvp-label">Plus 1?</label>
-            <input
-              name="plusOne" // Change to match formData key
-              type="checkbox"
-              className="rsvp-checkbox"
-              checked={formData.plusOne} // Ensure it's the correct key
-              onChange={handleChange} // Update form data on checkbox change
-            />
-          </div>
-          <button type="submit" className="rsvp-button">
-            RSVP
-          </button>
-        </form>
-      ) : (
-        <div
-          className="confirmation-message"
-          style={{ textAlign: 'center', color: 'forestgreen' }}
-        >
-          Thank you for your RSVP! We look forward to seeing you!
-        </div>
-      )}
+      <form
+        name="homiemoon-rsvp"
+        className="rsvp-form"
+        data-netlify="true"
+        //   onSubmit={handleSubmit} // Handle form submission
+        method="POST" // Ensure this is set for Netlify
+      >
+        <input type="hidden" name="form-name" value="homiemoon-rsvp" />
+        <input
+          name="name"
+          placeholder="Your Name"
+          className="rsvp-input"
+          // onChange={handleChange} // Update form data on input change
+          required // Ensure this field is filled out
+        />
+        <input
+          name="email"
+          placeholder="Your Email"
+          type="email"
+          className="rsvp-input"
+          // onChange={handleChange} // Update form data on input change
+          required // Ensure this field is filled out
+        />
+        <input
+          name="plusOne"
+          placeholder="Are you coming/bringing some one?"
+          type="text"
+          className="rsvp-input"
+          // onChange={handleChange} // Update form data on input change
+          required // Ensure this field is filled out
+        />
+        <button type="submit" className="rsvp-button">
+          RSVP
+        </button>
+      </form>
     </div>
   );
 };
