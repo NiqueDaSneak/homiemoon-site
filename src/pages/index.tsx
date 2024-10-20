@@ -28,7 +28,6 @@ const IndexPage: React.FC<PageProps> = () => {
             //  style={{ height: '90px', width: '90px' }}
             src={logo}
           />
-          {/* <p>Dominique & Sabigaynn: Homiemoon 2025</p> */}
         </div>
         <TypeItOut text="Dominique & Sabigaynn want to invite you..." />
         <GridFade singleRow directory="headerImgs" />
@@ -59,6 +58,9 @@ const IndexPage: React.FC<PageProps> = () => {
           fontFamily: "'Playwrite TZ', cursive",
         }}
       >
+        <p style={{ color: 'white', fontSize: '8pt' }}>
+          *did you click the photos?
+        </p>
         <p
           style={{
             fontSize: '17pt',
