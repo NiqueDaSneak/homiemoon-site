@@ -23,11 +23,29 @@ const RSVPForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent the default page refresh
-    setSubmitted(true); // Set submitted state to true
-    // Here, you can handle the form data as needed
-    console.log('Form submitted:', formData); // You can remove this line later
+
+    // Use FormData to send the input values to Netlify
+    const form = event.currentTarget; // Get the form element
+
+    const data = new FormData(form);
+
+    // Send data to Netlify
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      // If the response is ok, set submitted to true
+      setSubmitted(true);
+    } else {
+      console.error('Submission failed.');
+    }
   };
 
   return (
@@ -38,6 +56,8 @@ const RSVPForm: React.FC = () => {
           className="rsvp-form"
           data-netlify="true"
           onSubmit={handleSubmit} // Handle form submission
+          method="POST" // Ensure this is set for Netlify
+          action="/success" // Optional: Redirect to a success page (you can adjust this)
         >
           <input
             name="name"
