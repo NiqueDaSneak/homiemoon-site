@@ -11,30 +11,24 @@ const TypeItOut: React.FC<TypeItOutProps> = ({ text, speed = 100 }) => {
     `typeit-container-${Math.random().toString(36).substring(2, 15)}`,
   );
 
-  const isBrowser = typeof window !== 'undefined';
-
   useEffect(() => {
-    if (!isBrowser) return; // Only run if it's client-side (in the browser)
+    // Ensure the component only runs on the client
+    if (typeof window === 'undefined') return;
 
     const element = document.getElementById(uniqueId.current);
-    if (!element) return; // Ensure the element exists
+    if (!element) return; // Ensure the element exists before initializing TypeIt
 
-    // Use a slight delay to ensure the element is fully mounted
-    const timeout = setTimeout(() => {
-      const instance = new TypeIt(`#${uniqueId.current}`, {
-        speed: speed,
-        waitUntilVisible: true,
-      })
-        .type(text)
-        .go();
+    const instance = new TypeIt(`#${uniqueId.current}`, {
+      speed: speed,
+      waitUntilVisible: true,
+    })
+      .type(text)
+      .go();
 
-      return () => {
-        instance.destroy(); // Cleanup on unmount
-      };
-    }, 100); // Adjust delay if necessary
-
-    return () => clearTimeout(timeout); // Cleanup the timeout
-  }, [isBrowser, text, speed]);
+    return () => {
+      instance.destroy(); // Cleanup TypeIt instance on component unmount
+    };
+  }, [text, speed]);
 
   return (
     <div
