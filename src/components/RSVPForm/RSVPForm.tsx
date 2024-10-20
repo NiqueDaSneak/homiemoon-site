@@ -1,17 +1,84 @@
-import * as React from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 
-const RSVPForm = () => {
-  const test = 1;
+// Define the structure of the form data
+interface FormData {
+  name: string;
+  email: string;
+  plusOne: boolean;
+}
+
+const RSVPForm: React.FC = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    plusOne: false,
+  });
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent the default page refresh
+    setSubmitted(true); // Set submitted state to true
+    // Here, you can handle the form data as needed
+    console.log('Form submitted:', formData); // You can remove this line later
+  };
+
   return (
-    <form className="rsvp-form" data-netlify="true">
-      <input placeholder="Your Name" className="rsvp-input" />
-      <input placeholder="Your Email" type="email" className="rsvp-input" />
-      <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-        <label className="rsvp-label">Plus 1?</label>
-        <input type="checkbox" className="rsvp-checkbox" />
-      </div>
-      <button className="rsvp-button">RSVP</button>
-    </form>
+    <div>
+      {!submitted ? (
+        <form
+          name="homiemoon-rsvp"
+          className="rsvp-form"
+          data-netlify="true"
+          onSubmit={handleSubmit} // Handle form submission
+        >
+          <input
+            name="name"
+            placeholder="Your Name"
+            className="rsvp-input"
+            value={formData.name}
+            onChange={handleChange} // Update form data on input change
+            required // Ensure this field is filled out
+          />
+          <input
+            name="email"
+            placeholder="Your Email"
+            type="email"
+            className="rsvp-input"
+            value={formData.email}
+            onChange={handleChange} // Update form data on input change
+            required // Ensure this field is filled out
+          />
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+            <label className="rsvp-label">Plus 1?</label>
+            <input
+              name="plusOne" // Change to match formData key
+              type="checkbox"
+              className="rsvp-checkbox"
+              checked={formData.plusOne} // Ensure it's the correct key
+              onChange={handleChange} // Update form data on checkbox change
+            />
+          </div>
+          <button type="submit" className="rsvp-button">
+            RSVP
+          </button>
+        </form>
+      ) : (
+        <div
+          className="confirmation-message"
+          style={{ textAlign: 'center', color: 'white' }}
+        >
+          Thank you for your RSVP! We look forward to seeing you!
+        </div>
+      )}
+    </div>
   );
 };
 
