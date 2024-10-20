@@ -31,7 +31,7 @@ const RSVPForm: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: '150px' }}>
       {!submitted ? (
         <form
           name="homiemoon-rsvp"
@@ -73,7 +73,7 @@ const RSVPForm: React.FC = () => {
       ) : (
         <div
           className="confirmation-message"
-          style={{ textAlign: 'center', color: 'white' }}
+          style={{ textAlign: 'center', color: 'forestgreen' }}
         >
           Thank you for your RSVP! We look forward to seeing you!
         </div>
