@@ -84,11 +84,12 @@ const IndexPage: React.FC<PageProps> = () => {
           <span style={{ color: 'white' }}>
             Please join us in Hurghada, Egypt:
           </span>
-          <span style={{ color: 'white' }}>Sept 12th - 19th 2025</span>
+          <span style={{ color: 'white' }}>Sept 12th - 21st 2025</span>
         </aside>
         <p style={{ color: 'white', fontSize: '12pt' }}>
           More details after RSVP
         </p>
+        <p style={{ color: 'white', fontSize: '12pt' }}>RSVP by 11/02/2024</p>
         <RSVPForm />
       </section>
     </main>
